@@ -1,0 +1,25 @@
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{ 
+    "username": "phucthaii1820",
+    "password": "123" 
+}
+
+###
+
+GET http://localhost:4000/auth/test
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50Ijp7Il9pZCI6IjYyODc2OWM0ZTVmOWQwN2EzNDgyY2FmZiIsInVzZXJuYW1lIjoicGh1Y3RoYWlpMTgyMCIsInBhc3N3b3JkIjoiJGFyZ29uMmkkdj0xOSRtPTQwOTYsdD0zLHA9MSRXWjlVaVUwS0dlMld6cHZYVkdYeDhRJDlIVzJMaU90WTc0TFNNQU91SWhKa3V6ZjdCVDRXTCtjbFFDSWsyMDIwUnMiLCJyb2xlIjoxfSwiaWF0IjoxNjUzMjcyMzE3LCJleHAiOjE2NTM0NDUxMTd9.jdqwovYe_4jAWXs5bSMn6ziniLWS-zBIPdtMUZfCXsw
+
+
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{ 
+    "username": "phucthaii1820jk9êr0jkeeee1",
+    "password": "123" 
+}
+
+###
+GET https://628e3f3f0cb1402218a32774--zippy-monstera-131549.netlify.app/auth/test
