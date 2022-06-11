@@ -3,23 +3,17 @@ import jwt from 'jsonwebtoken'
 
 export default {
     async login (req, res) {
-        let account;
+        let user_data;
         if(!req.body.username || !req.body.password)
             res.status(400).json({success: false, message: "Don't have username or password!"});
         else {
-            account = await userService.authenticate(req.body.username, req.body.password);
-
-            if(account) {
+            user_data = await userService.authenticate(req.body.username, req.body.password);
+            delete user_data.password
+            if(user_data) {
                 res.send(
                     {
-                        user_data: {
-                            _id: account._id,
-                            name: account.name,
-                            username: account.username,
-                            avata: account.avata,
-                            role: account.role
-                        },
-                        token: jwt.sign({account}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '2 days'})
+                        user_data,
+                        token: jwt.sign({user_data}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '2 days'})
                     })
             }
             else
