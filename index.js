@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import { mongoose } from "mongoose";
 import dotenv from "dotenv"
+import productService from "./services/product.service.js";
+import categoryService from "./services/category.service.js";
 
 import activate_route_middleware from "./middlewares/routes.mdw.js";
 
@@ -22,7 +24,6 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
   app.use(express.json())
 
 activate_route_middleware(app);

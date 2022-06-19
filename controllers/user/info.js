@@ -2,8 +2,8 @@ import userService from '../../services/user.service.js'
 
 export default {
     async info (req, res) {
-        const username = req.body.username
-        const user_data = await userService.findUserByUsername(username);
+        const phone = req.body.phone
+        const user_data = await userService.findUserByPhone(phone);
 
         if(user_data) {
             res.send(
@@ -12,7 +12,7 @@ export default {
                 })
         }
         else {
-            res.status(400).json({success: false, message: 'Username already exists'});
+            res.status(400).json({success: false, message: 'User is not already exists'});
         }
     }   
 }

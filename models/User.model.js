@@ -1,7 +1,8 @@
 import { mongoose } from 'mongoose';
+import role from '../configs/role.js';
 
 const userSchema = new mongoose.Schema({
-    username :{
+    phone :{
         type: String,
         require: true,
         unique: true
@@ -33,8 +34,19 @@ const userSchema = new mongoose.Schema({
     dob:Date,
     role:{
         type:Number,
-        default: 1
+        enum: Object.values(role),
+        default: role.buyer
     },
+    bio: {
+        type: String,
+        default: 'Chào mừng đến trang cá nhân trên Đồ Chơi Xe của tôi!'
+    },
+    receipt: [{
+        receipt_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Receipt'
+        }
+    }],
     createAt: {
         type: Date,
         default: Date.now

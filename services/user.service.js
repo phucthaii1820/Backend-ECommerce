@@ -5,23 +5,23 @@ import argon2 from 'argon2'
 export default{
 
     //kiểm tra user tồn tại
-    async checkExitsUser(username) {
-        const user = await User.exists({username});
+    async checkExitsUser(phone) {
+        const user = await User.exists({phone});
         return user;
     },
 
     //tạo mới user
-    async createNewUser(username, password) {
-        if(!await User.exists({username})){
-            const user = await User.create({ username, password: await argon2.hash(password)});
+    async createNewUser(phone, password) {
+        if(!await User.exists({phone})){
+            const user = await User.create({ phone, password: await argon2.hash(password)});
             return user;
         }
         return null;
     },
 
     //kiểm tra đăng nhập
-    async authenticate(username, password) {
-        const user = await User.findOne({username}, 'name username password avatar role banned').exec();
+    async authenticate(phone, password) {
+        const user = await User.findOne({phone}, 'name phone password avatar role banned').exec();
         if(await argon2.verify(user.password, password)) {
             return user;
         }
@@ -30,14 +30,14 @@ export default{
 
     //Tìm user
     async findUserByID(_id) {
-        const user_data = await User.findById(_id, "_id name username avatar role banned").lean().exec()
+        const user_data = await User.findById(_id, "_id name phone avatar role banned").lean().exec()
         if(user_data) 
             return user_data;
         return null;
     },
 
-    async findUserByUsername(username) {
-        const user_data = await User.findOne({username},  'name username avatar role banned').exec();
+    async findUserByPhone(phone) {
+        const user_data = await User.findOne({phone},  'name phone avatar role banned').exec();
         if(user_data) 
             return user_data;
         return null;

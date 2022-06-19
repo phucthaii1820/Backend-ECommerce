@@ -3,9 +3,10 @@ import jwt from 'jsonwebtoken'
 
 export default {
     async register (req, res) {
+        console.log(req.body)
 
-        if(!await userService.checkExitsUser(req.body.username)) {
-            const account = await userService.createNewUser(req.body.username, req.body.password);
+        if(!await userService.checkExitsUser(req.body.phone)) {
+            const account = await userService.createNewUser(req.body.phone, req.body.password);
             
             if(account) {
                 res.send(
@@ -13,7 +14,7 @@ export default {
                         user_data: {
                             _id: account._id,
                             name: account.name,
-                            username: account.username,
+                            phone: account.phone,
                             avata: account.avata,
                             role: account.role
                         },
@@ -22,7 +23,7 @@ export default {
                 }
         }
         else {
-            res.status(400).json({success: false, message: 'Username already exists'});
+            res.status(400).json({success: false, message: 'User already exists'});
         }
     }
 }
