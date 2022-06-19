@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 
 export default {
     async register (req, res) {
-        console.log(req.body)
 
         if(!await userService.checkExitsUser(req.body.phone)) {
             const account = await userService.createNewUser(req.body.phone, req.body.password);

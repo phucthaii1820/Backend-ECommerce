@@ -8,6 +8,7 @@ export default {
         const token = authHeader && authHeader.split(' ')[1];
 
         let decodedData = {};
+
         
         if (token) {
             jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
@@ -18,14 +19,10 @@ export default {
         }
 
     
-        if(decodedData) {
-            const account = decodedData.account
+        if(decodedData?.user_data?._id) {
+            const user_data = await userService.findUserByID(decodedData.user_data._id);
 
-            if(account) {
-                const user_data = await userService.findUserByID(account._id);
-                if(user_data)
-                    req.user_data = user_data;
-                }
+            req.user_data = user_data;
         }
 
         next();

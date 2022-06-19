@@ -9,7 +9,7 @@ router.post('/login', loginController.login)
 router.post('/register', registerController.register)
 
 router.get('/test', (req, res) => {
-    console.log(req.user_data);
+    console.log(req.user_data)
 })
 
 export default router;
