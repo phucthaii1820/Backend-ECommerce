@@ -13,7 +13,10 @@ export default{
     //tạo mới user
     async createNewUser(phone, password) {
         if(!await User.exists({phone})){
-            const user = await User.create({ phone, password: await argon2.hash(password)});
+            const hashPass = await argon2.hash(password)
+            console.log('check')
+            const user = await User.create({ phone, password: hashPass});
+            console.log('check')
             return user;
         }
         return null;
@@ -22,22 +25,24 @@ export default{
     //kiểm tra đăng nhập
     async authenticate(phone, password) {
         const user = await User.findOne({phone}, 'name phone password avatar role banned').exec();
-        if(await argon2.verify(user.password, password)) {
-            return user;
+        if(user) {
+            if(await argon2.verify(user.password, password)) {
+                return await User.findOne({phone}, '-password').exec();
+            }
         }
         return null;
     },
 
     //Tìm user
     async findUserByID(_id) {
-        const user_data = await User.findById(_id, "_id name phone avatar role banned").lean().exec()
+        const user_data = await User.findById(_id, "-password").lean().exec()
         if(user_data) 
             return user_data;
         return null;
     },
 
     async findUserByPhone(phone) {
-        const user_data = await User.findOne({phone},  'name phone avatar role banned').exec();
+        const user_data = await User.findOne({phone},  '-password').exec();
         if(user_data) 
             return user_data;
         return null;
@@ -45,5 +50,20 @@ export default{
 
     async getAllUser() {
         return await User.find('-password').exec()
+    },
+    async updateInfo(phone, email, fullname, gender, address, cmnd, bio) {
+        return User.updateOne({ phone }, {
+            email, fullname, gender, address, cmnd, bio
+        })
+    },
+    async updatePassword(phone, password, newPassword) {
+        const user = this.authenticate(phone, password);
+        if(user) {
+            return User.updateOne({ phone }, {
+                password: await argon2.hash(newPassword)
+            })
+        }
+        else
+            return false
     }
 }

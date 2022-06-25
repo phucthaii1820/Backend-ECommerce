@@ -3,21 +3,14 @@ import jwt from 'jsonwebtoken'
 
 export default {
     async register (req, res) {
-
         if(!await userService.checkExitsUser(req.body.phone)) {
-            const account = await userService.createNewUser(req.body.phone, req.body.password);
+            const user_data = await userService.createNewUser(req.body.phone, req.body.password);
             
-            if(account) {
+            if(user_data) {
                 res.send(
                     {
-                        user_data: {
-                            _id: account._id,
-                            name: account.name,
-                            phone: account.phone,
-                            avata: account.avata,
-                            role: account.role
-                        },
-                        token: jwt.sign({account}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '2 days'})
+                        user_data,
+                        token: jwt.sign({user_data}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '2 days'})
                     })
                 }
         }

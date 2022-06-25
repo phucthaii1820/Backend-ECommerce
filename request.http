@@ -2,21 +2,21 @@ POST https://fit-summer-2022-ecommerce.herokuapp.com/auth/login
 Content-Type: application/json
 
 { 
-    "username": "phucthaii1820",
+    "phone": "0835059053",
     "password": "123" 
 }
 
 ###
 
 GET http://localhost:4000/auth/test
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJhZjYxZDg2NTYxODA0NTk0MzEzYjJlIiwicGhvbmUiOiIwODM1MDU5MDUzIiwicGFzc3dvcmQiOiIkYXJnb24yaSR2PTE5JG09NDA5Nix0PTMscD0xJCtPcUNPY2E1R3hmV3F2aU44R25JT3ckditNTUNoRjNuOVBSV01TT3BRZmRQc1J2S1IzN01sTXRyemhmOFV5WlNsdyIsInJvbGUiOjF9LCJpYXQiOjE2NTU2NjIwNzEsImV4cCI6MTY1NTgzNDg3MX0.H6z8IFPBFUBCMaokemdponpyFEHnCZZmVxc1ICxEieE
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJhZjYxZDg2NTYxODA0NTk0MzEzYjJlIiwicGhvbmUiOiIwODM1MDU5MDUzIiwicGFzc3dvcmQiOiIkYXJnb24yaSR2PTE5JG09NDA5Nix0PTMscD0xJCtPcUNPY2E1R3hmV3F2aU44R25JT3ckditNTUNoRjNuOVBSV01TT3BRZmRQc1J2S1IzN01sTXRyemhmOFV5WlNsdyIsInJvbGUiOjF9LCJpYXQiOjE2NTYxNzg0ODUsImV4cCI6MTY1NjM1MTI4NX0.PZQIFeLH9Aa7aWWlZ4z114OUVQnhnqI-a9fwjrGCIfk
 
 ###
 POST https://fit-summer-2022-ecommerce.herokuapp.com/auth/register
 Content-Type: application/json
 
 { 
-    "username": "phucthaii1820jk9êr0jkeeee1",
+    "phone": "123123123123",
     "password": "123" 
 }
 
@@ -25,16 +25,19 @@ GET http://localhost:4000/user/info
 Content-Type: application/json
 
 { 
-    "username": "phucthaii1820"
+    "phone": "0835059053"
 }
 
 ###
-POST http://localhost:4000/auth/login
+POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 { 
-    "phone": "0835059053",
-    "password": "123" 
+    "phone": "0835059056",
+    "password": "1234" 
 }
+
+###
+GET http://localhost:4000/products/getList?category=62ab68801094bceaaaa5c981
 
 
