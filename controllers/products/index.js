@@ -1,6 +1,6 @@
 import productService from "../../services/product.service.js";
 export default {
-    async getProducts (req, res) {
+    async getProductsByCategory (req, res) {
         const {category, page} = req?.query
         if(category){
             const listProducts = await productService.getListProductByCategory(category, page?page:1)

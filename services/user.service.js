@@ -14,9 +14,7 @@ export default{
     async createNewUser(phone, password) {
         if(!await User.exists({phone})){
             const hashPass = await argon2.hash(password)
-            console.log('check')
             const user = await User.create({ phone, password: hashPass});
-            console.log('check')
             return user;
         }
         return null;
@@ -41,6 +39,7 @@ export default{
         return null;
     },
 
+    //Tìm user bằng số điện thoại
     async findUserByPhone(phone) {
         const user_data = await User.findOne({phone},  '-password').exec();
         if(user_data) 
@@ -48,14 +47,19 @@ export default{
         return null;
     },
 
+    //Lấy tất cả user
     async getAllUser() {
         return await User.find('-password').exec()
     },
+
+    //cập nhật lại thông tin người dùng
     async updateInfo(phone, email, fullname, gender, address, cmnd, bio) {
         return User.updateOne({ phone }, {
             email, fullname, gender, address, cmnd, bio
         })
     },
+
+    //Cập nhật lại password
     async updatePassword(phone, password, newPassword) {
         const user = this.authenticate(phone, password);
         if(user) {
@@ -64,6 +68,6 @@ export default{
             })
         }
         else
-            return false
+            return null
     }
 }
