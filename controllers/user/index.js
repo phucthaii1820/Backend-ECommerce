@@ -16,5 +16,7 @@ export default {
                 res.status(400).json({success: false, message: 'User is not already exists'});
             }
         }
+        else 
+            res.status(400).json({success: false, message: 'Please login your account!'});
     }   
 }

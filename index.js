@@ -61,6 +61,45 @@ const options = {
 const specs = swaggerJSDoc(options);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+app.use((req, res, next) => {
+  // Website you wish to allow to connect
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  // Request methods you wish to allow
+  res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+
+  // Request headers you wish to allow
+  res.setHeader(
+      "Access-Control-Allow-Headers",
+      "X-Requested-With,content-type"
+  );
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader("Access-Control-Allow-Credentials", false);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+const allowlist = [
+  'http://localhost:3000',
+  'https://fit-summer-2022-ec-ommerce.vercel.app/'
+];
+const corsOptionsDelegate = function (req, callback) {
+   var corsOptions;
+   if (allowlist.indexOf(req.header("Origin")) !== -1) {
+       corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+   } else {
+       corsOptions = { origin: false }; // disable CORS for this request
+   }
+   callback(null, corsOptions); // callback expects two parameters: error and options
+};
+app.use(cors(corsOptionsDelegate));
+
 
 activate_route_middleware(app);
 
