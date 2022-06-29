@@ -1,8 +1,7 @@
-import { mongoose } from 'mongoose';
+import { mongoose } from "mongoose";
 
 const categorySchema = mongoose.Schema({
-    name:String,
-    categoryId:Number
+  name: String,
 });
 
-export default mongoose.model('Category',categorySchema);
+export default mongoose.model("Category", categorySchema);

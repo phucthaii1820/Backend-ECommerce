@@ -44,4 +44,48 @@ export default {
         .status(400)
         .json({ success: false, message: "Please login your account!" });
   },
+
+  async addWish(req, res) {
+    if (req.user_data) {
+      const { idProduct } = req.body;
+      const wish = await userService.addProductOnWish(
+        req.user_data._id,
+        idProduct
+      );
+      res.send({
+        wish,
+      });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
+
+  async removeWish(req, res) {
+    if (req.user_data) {
+      const { idProduct } = req.body;
+      const wish = await userService.removeProductOnWish(
+        req.user_data._id,
+        idProduct
+      );
+      res.send({
+        wish,
+      });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
+
+  async wishList(req, res) {
+    if (req.user_data) {
+      const wish = await userService.getWishList(req.user_data._id);
+      res.send({
+        wish,
+      });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
 };

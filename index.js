@@ -1,13 +1,12 @@
 import express from "express";
 import cors from "cors";
 import { mongoose } from "mongoose";
-import dotenv from "dotenv"
-import swaggerJSDoc from "swagger-jsdoc"
-import swaggerUi from "swagger-ui-express"
+import dotenv from "dotenv";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 import productService from "./services/product.service.js";
 import categoryService from "./services/category.service.js";
 import userService from "./services/user.service.js";
-
 
 import activate_route_middleware from "./middlewares/routes.mdw.js";
 
@@ -27,39 +26,44 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-  
-app.use(express.json())
+
+app.use(express.json());
 
 const options = {
   definition: {
-      openapi: "3.0.0",
-      info: {
-          title: "Bikergear API",
-          version: "1.0.0",
+    openapi: "3.0.0",
+    info: {
+      title: "Bikergear API",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "https://fit-summer-2022-ecommerce.herokuapp.com/",
       },
-      servers: [{
-          url: "https://fit-summer-2022-ecommerce.herokuapp.com/"
-      }, {
-          url: "http://localhost:4000",
-      }],
-      components: {
-        securitySchemes: {
-            bearerAuth: {
-                type: 'http',
-                scheme: 'bearer',
-                bearerFormat: 'JWT',
-            }
-        }
+      {
+        url: "http://localhost:4000",
       },
-      security: [{
-          bearerAuth: []
-      }]
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./routes/**/*.js"],
 };
 
 const specs = swaggerJSDoc(options);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use((req, res, next) => {
   // Website you wish to allow to connect
@@ -67,14 +71,14 @@ app.use((req, res, next) => {
 
   // Request methods you wish to allow
   res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
   );
 
   // Request headers you wish to allow
   res.setHeader(
-      "Access-Control-Allow-Headers",
-      "X-Requested-With,content-type"
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
   );
 
   // Set to true if you need the website to include cookies in the requests sent
@@ -86,20 +90,31 @@ app.use((req, res, next) => {
 });
 
 const allowlist = [
-  'http://localhost:3000',
-  'https://fit-summer-2022-ec-ommerce.vercel.app/'
+  "http://localhost:3000",
+  "https://fit-summer-2022-ec-ommerce.vercel.app/",
 ];
 const corsOptionsDelegate = function (req, callback) {
-   var corsOptions;
-   if (allowlist.indexOf(req.header("Origin")) !== -1) {
-       corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
-   } else {
-       corsOptions = { origin: false }; // disable CORS for this request
-   }
-   callback(null, corsOptions); // callback expects two parameters: error and options
+  var corsOptions;
+  if (allowlist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
 };
 app.use(cors(corsOptionsDelegate));
 
+// productService.createProduct(
+//   "PHUỘC OHLINS",
+//   "Phuộc Ohlin chạy rất êm và ổn định khi các bạn chạy đường xa hoặc xóc, giúp xe sẽ không bị giằng, đảm bảo sự ổn định cho xe khi đi vào ổ gà, ổ voi hay đường khó.",
+//   "OHLINS",
+//   [
+//     { color: "#ffd700", quantity: 20, price: 2000000 },
+//     { color: "#ffd700", quantity: 20, price: 2000000 },
+//   ],
+//   "62ab69292e32395e2418d364",
+//   ""
+// );
 
 activate_route_middleware(app);
 

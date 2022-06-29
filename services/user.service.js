@@ -80,4 +80,27 @@ export default {
       return false;
     }
   },
+
+  //Thêm product vào wish list
+  async addProductOnWish(_id, idProduct) {
+    const user = await User.findById(_id, "wish");
+    const wish = user.wish;
+    wish.push(idProduct);
+    await User.updateOne({ _id }, { wish });
+    return wish;
+  },
+
+  //Xóa product trong wish list
+  async removeProductOnWish(_id, idProduct) {
+    const user = await User.findById(_id, "wish");
+    const wish = user.wish;
+    wish.pop(idProduct);
+    await User.updateOne({ _id }, { wish });
+    return wish;
+  },
+
+  async getWishList(_id) {
+    const user = await User.findById(_id, "wish");
+    return user.wish;
+  },
 };
