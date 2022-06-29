@@ -36,4 +36,14 @@ Content-Type: application/json
 ###
 GET http://localhost:4000/products/getListByCategory?category=62ab68801094bceaaaa5c981
 
+###
+POST http://localhost:4000/user/change-password
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IiIsImdlbmRlciI6IiIsImFkZHJlc3MiOiIiLCJjbW5kIjoiIiwicm9sZSI6MSwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjB9LCJpYXQiOjE2NTY0ODAzMjAsImV4cCI6MTY1NjY1MzEyMH0.0DEsptfmZ-Q6_JiKw87yqu-G_nRXKrpqINTc42v0Maw
+Content-Type: application/json
+
+{ 
+    "password": "12345" ,
+     "newPassword": "1234" 
+}
+
 
