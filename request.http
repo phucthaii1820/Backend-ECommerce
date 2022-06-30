@@ -22,8 +22,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4000/user/info
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IiIsImdlbmRlciI6IiIsImFkZHJlc3MiOiIiLCJjbW5kIjoiIiwicm9sZSI6MSwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjB9LCJpYXQiOjE2NTYyNDM5NzIsImV4cCI6MTY1NjQxNjc3Mn0.b4RtuF7eP5lcOsLa8Y8mR5FcIkWr4Z5jc_GYsC2BLGY
-
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IiIsImdlbmRlciI6IiIsImFkZHJlc3MiOiIiLCJjbW5kIjoiIiwicm9sZSI6MSwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XX0sImlhdCI6MTY1NjUyNzY3OSwiZXhwIjoxNjU2NzAwNDc5fQ.R7ZhwMSL_eKw_O-BneeKCLxrDOPS1whHGsBe-y_vbTY
 ###
 POST http://localhost:4000/auth/login
 Content-Type: application/json
@@ -34,10 +33,11 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:4000/products/getListByCategory?category=62ab68801094bceaaaa5c981
+GET http://localhost:4000/products/getListByCategory?category=62ab68801094bceaaaa5c981&page=3
 
 ###
-GET http://localhost:4000/products/get-product?id=62bc86500e6b389490195354
+GET http://localhost:4000/products/get-product?id=62bd79c9dcccb6ee9faf9cd9
+
 
 ###
 POST http://localhost:4000/products/add-product
@@ -48,11 +48,9 @@ Content-Type: application/json
     "title": "Phuộc YSS RAIDER/SATRIA G-SPORT", 
     "description": "Phuộc YSS Suzuki RAIDER, SATRIA G-SPORT CÓ BÌNH DẦU. Nhập khẩu chính hãng YSS Thái Lan bởi YSS.VN. Thông Số Phuộc YSS: MX302-285TRL-01-4-JX", 
     "nameBrand": "YSS", 
-    "type": 
-     [
-   { "color": "#ffd700", "quantity": 20, "price": 4000000 },
-     { "color": "#ffd700", "quantity": 20, "price": 5000000 },
-   ], "category": "62ab69292e32395e2418d364", "image": [] 
+    "type": [{ "color": "#ffd700", "quantity": 20, "price": 4000000 },{ "color": "#ffd700", "quantity": 20, "price": 5000000 }], 
+    "category": "62ab68801094bceaaaa5c981", 
+    "image": [] 
 }
 
 ###

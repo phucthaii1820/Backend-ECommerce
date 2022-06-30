@@ -5,7 +5,7 @@ export default {
     if (category) {
       const listProducts = await productService.getListProductByCategory(
         category,
-        page ? page : 1
+        page
       );
       res.send({
         data: listProducts,
