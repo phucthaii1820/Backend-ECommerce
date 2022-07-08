@@ -1,4 +1,5 @@
 import productService from "../../services/product.service.js";
+import cloudinary from "../../configs/cloudinary.config.js";
 export default {
   async getProductsByCategory(req, res) {
     const { category, page } = req?.query;
@@ -29,17 +30,24 @@ export default {
         .json({ success: false, message: "Product is not already exists" });
   },
 
-  async addProduct(req, res) {
+  async addProduct(req, res, next) {
     if (req.user_data && req.user_data?.role === 1000) {
-      const { title, description, nameBrand, type, category, image } = req.body;
-      await productService.createProduct(
+      const { title, description, nameBrand, type, category } = req.body;
+      const product = await productService.createProduct(
         title,
         description,
         nameBrand,
         type,
-        category,
-        image
+        category
       );
+
+      const url = [];
+      req.files.map(async (item) => {
+        const result = await cloudinary.uploader.upload(item.path, {
+          public_id: "products/" + product._id + "/" + item.filename,
+        });
+        await productService.addImageProduct(product._id, result.secure_url);
+      });
 
       res.status(200).json({ success: true, message: "Add product success" });
     } else

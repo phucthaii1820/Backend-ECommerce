@@ -1,5 +1,6 @@
 import express from "express";
 import productsController from "../../controllers/products/index.js";
+import upload from "../../configs/multer.config.js";
 
 const router = express.Router();
 
@@ -74,6 +75,10 @@ router.get("/get-product", productsController.getInfoProduct);
  *               - category
  *               - image
  */
-router.post("/add-product", productsController.addProduct);
+router.post(
+  "/add-product",
+  upload.array("image"),
+  productsController.addProduct
+);
 
 export default router;

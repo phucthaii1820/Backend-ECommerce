@@ -3,7 +3,10 @@ import { mongoose } from "mongoose";
 
 export default {
   async createProduct(title, description, nameBrand, type, category, image) {
-    await Product.create({
+    if (typeof type === "string") {
+      type = JSON.parse(type);
+    }
+    return await Product.create({
       title,
       description,
       nameBrand,
@@ -40,5 +43,17 @@ export default {
   async getProduct(_id) {
     const product = await Product.findById(_id);
     return product;
+  },
+
+  async addImageProduct(_id, url) {
+    const product = await Product.findById(_id);
+    let image = [...product.image];
+    image.push(url);
+    return await Product.updateOne(
+      { _id },
+      {
+        image,
+      }
+    );
   },
 };
