@@ -48,7 +48,7 @@ router.get("/get-product", productsController.getInfoProduct);
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -66,7 +66,9 @@ router.get("/get-product", productsController.getInfoProduct);
  *               category:
  *                 type: string
  *               image:
- *                 type: string
+ *                 type: array
+ *                 items:
+ *                   type: file
  *             required:
  *               - title
  *               - description

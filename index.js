@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 import productService from "./services/product.service.js";
 import categoryService from "./services/category.service.js";
 import userService from "./services/user.service.js";
+import paypal from "paypal-rest-sdk";
 
 import activate_route_middleware from "./middlewares/routes.mdw.js";
 
@@ -104,18 +105,80 @@ const corsOptionsDelegate = function (req, callback) {
 };
 app.use(cors(corsOptionsDelegate));
 
-// productService.createProduct(
-//   "PHUỘC OHLINS",
-//   "Phuộc Ohlin chạy rất êm và ổn định khi các bạn chạy đường xa hoặc xóc, giúp xe sẽ không bị giằng, đảm bảo sự ổn định cho xe khi đi vào ổ gà, ổ voi hay đường khó.",
-//   "OHLINS",
-//   [
-//     { color: "#ffd700", quantity: 20, price: 2000000 },
-//     { color: "#ffd700", quantity: 20, price: 2000000 },
-//   ],
-//   "62ab69292e32395e2418d364",
-//   ""
-// );
-
 activate_route_middleware(app);
+
+paypal.configure({
+  mode: "sandbox", //sandbox or live
+  client_id:
+    "AeBB1FJlFKGdtJr42QirGBpNyfmzJA1giAOFLk-LAsb0RgTq_H2hAg2_hx4VA8H30pB40O071Sz575ah",
+  client_secret:
+    "EDMpuDQJxZW4CMHDLGE3jVQuW6HImZAd9AwSU2wcAAjGKX-9a3bU1icdsZ2k4TLnCpYUMExBj0QxspF6",
+});
+
+app.post("/pay", function (req, res) {
+  const create_payment_json = {
+    intent: "sale",
+    payer: {
+      payment_method: "paypal",
+    },
+    redirect_urls: {
+      return_url: "http://localhost:3000/success",
+      cancel_url: "http://localhost:3000/cancel",
+    },
+    transactions: [
+      {
+        item_list: {
+          items: [
+            {
+              name: "Red Sox Hat",
+              sku: "001",
+              price: "1.0",
+              currency: "USD",
+              quantity: 15,
+            },
+            {
+              name: "Blue Sox Hat",
+              sku: "002",
+              price: "1.5",
+              currency: "USD",
+              quantity: 1,
+            },
+            {
+              name: "Blue Sox Hat",
+              sku: "003",
+              price: "1.5",
+              currency: "USD",
+              quantity: 1,
+            },
+            {
+              name: "Blue Sox Hat",
+              sku: "004",
+              price: "1.5",
+              currency: "USD",
+              quantity: 1,
+            },
+          ],
+        },
+        amount: {
+          currency: "USD",
+          total: "19.5",
+        },
+        description: "Hat for the best team ever",
+      },
+    ],
+  };
+
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+      res.render("cancle");
+    } else {
+      for (let i = 0; i < payment.links.length; i++) {
+        if (payment.links[i].rel === "approval_url") {
+          res.send({ link: payment.links[i].href });
+        }
+      }
+    }
+  });
+});
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
