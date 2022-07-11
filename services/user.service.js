@@ -52,18 +52,31 @@ export default {
   },
 
   //cập nhật lại thông tin người dùng
-  async updateInfo(phone, email, fullname, gender, address, cmnd, bio) {
-    return User.updateOne(
+  async updateInfo(
+    phone,
+    email,
+    fullname,
+    gender,
+    address,
+    province,
+    district,
+    ward,
+    cmnd
+  ) {
+    await User.updateOne(
       { phone },
       {
         email,
         fullname,
         gender,
         address,
+        province,
+        district,
+        ward,
         cmnd,
-        bio,
       }
     );
+    return User.findOne({ phone }, "-password").exec();
   },
 
   //Cập nhật lại password

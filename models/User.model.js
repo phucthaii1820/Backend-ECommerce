@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  province: {
+    type: Number,
+    default: -1,
+  },
+  district: {
+    type: Number,
+    default: -1,
+  },
+  ward: {
+    type: Number,
+    default: -1,
+  },
   cmnd: {
     type: String,
     default: "",

@@ -88,4 +88,37 @@ export default {
         .status(400)
         .json({ success: false, message: "Please login your account!" });
   },
+
+  async updateInfo(req, res) {
+    if (req.user_data) {
+      const {
+        email,
+        fullname,
+        gender,
+        address,
+        province,
+        district,
+        ward,
+        cmnd,
+      } = req.body;
+
+      const user_data = await userService.updateInfo(
+        req.user_data.phone,
+        email,
+        fullname,
+        gender,
+        address,
+        province,
+        district,
+        ward,
+        cmnd
+      );
+      res
+        .status(200)
+        .json({ success: true, message: "Update info success!", user_data });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
 };
