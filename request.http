@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:4000/user/info
-Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IiIsImdlbmRlciI6IiIsImFkZHJlc3MiOiIiLCJjbW5kIjoiIiwicm9sZSI6MSwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XX0sImlhdCI6MTY1NjUyNzY3OSwiZXhwIjoxNjU2NzAwNDc5fQ.R7ZhwMSL_eKw_O-BneeKCLxrDOPS1whHGsBe-y_vbTY
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU3ODY3MDc1LCJleHAiOjE2NTgwMzk4NzV9.7t16l7dfdNHq9e5LPjCjze7c94yIgFPo2W1TG1ujsrE
 ###
 POST http://localhost:4000/auth/login
 Content-Type: application/json
@@ -88,7 +88,35 @@ Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsicH
 
 
 ###
-POST http://localhost:4000/pay
+POST http://localhost:4000/order/create
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU3ODk2NDkzLCJleHAiOjE2NTgwNjkyOTN9.1HYdOZ8yP3ueVSA8ScjWCJhT1IicC0xfhGvo6ehQYpg
+Content-Type: application/json
+
+{ 
+    "products": [
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "typeId": "62bd79c9dcccb6ee9faf9cda",
+            "quantity": 1,
+            "total": 100
+        },
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "typeId": "62bd79c9dcccb6ee9faf9cdb",
+            "quantity": 1,
+            "total": 100
+        }
+    ],
+    "ship": 0,
+    "total": 100,
+    "payment": 1
+}
+
+###
+GET http://localhost:4000/order/get-all
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU3ODk2NDkzLCJleHAiOjE2NTgwNjkyOTN9.1HYdOZ8yP3ueVSA8ScjWCJhT1IicC0xfhGvo6ehQYpg
 
 ###
 POST http://localhost:4000/auth/register
@@ -114,3 +142,28 @@ Content-Type: application/json
     "ward": 4,
     "cmnd": ""
 }
+
+###
+POST http://localhost:4000/order/pay
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU3ODk2NDkzLCJleHAiOjE2NTgwNjkyOTN9.1HYdOZ8yP3ueVSA8ScjWCJhT1IicC0xfhGvo6ehQYpg
+Content-Type: application/json
+
+{ 
+   "products": [
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "quantity": 1,
+            "name": "Sản phẩm 1"
+        },
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "quantity": 1,
+            "name": "Sản phẩm 2"
+        }
+    ]
+}
+
+###
+post http://localhost:4000/pay
