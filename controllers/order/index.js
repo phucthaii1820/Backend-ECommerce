@@ -1,4 +1,5 @@
 import orderService from "../../services/order.service.js";
+import momo from "./momo.js";
 import paypal from "./paypal.js";
 
 export default {
@@ -33,9 +34,19 @@ export default {
 
   async pay(req, res) {
     if (req.user_data) {
-      const { products } = req.body;
-      const link = await paypal.pay(products);
-      res.json(link);
+      const { products, typePayment } = req.body;
+      switch (typePayment) {
+        case 1: {
+          const link = await paypal.pay(products);
+          res.send(link);
+          break;
+        }
+        case 2: {
+          const result = await momo.pay(products);
+          res.send(result);
+          break;
+        }
+      }
     } else {
       res
         .status(400)

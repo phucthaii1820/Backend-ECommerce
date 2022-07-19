@@ -51,10 +51,10 @@ router.post("/change-password", userController.changePassword);
  *           schema:
  *             type: object
  *             properties:
- *               idProduct:
+ *               product_id:
  *                 type: string
  *             required:
- *               - idProduct
+ *               - product_id
  */
 router.post("/add-wish-product", userController.addWish);
 
@@ -72,10 +72,10 @@ router.post("/add-wish-product", userController.addWish);
  *           schema:
  *             type: object
  *             properties:
- *               idProduct:
+ *               product_id:
  *                 type: string
  *             required:
- *               - idProduct
+ *               - product_id
  */
 router.post("/remove-wish-product", userController.removeWish);
 
@@ -124,5 +124,51 @@ router.get("/wish-list", userController.wishList);
  *               - newPassword
  */
 router.post("/update-info", userController.updateInfo);
+
+/**
+ * @openapi
+ * /user/add-cart:
+ *   post:
+ *     summary: add cart
+ *     tags:
+ *       - user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               product_id:
+ *                 type: string
+ *               type_id:
+ *                 type: string
+ *               quantity:
+ *                 type: integer
+ *             required:
+ *               - product_id
+ */
+router.post("/add-cart", userController.addCart);
+
+/**
+ * @openapi
+ * /user/remove-cart:
+ *   post:
+ *     summary: remove cart product
+ *     tags:
+ *       - user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               cart_id:
+ *                 type: string
+ *             required:
+ *               - cart_id
+ */
+router.post("/remove-cart", userController.removeCart);
 
 export default router;

@@ -69,6 +69,23 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  cart: [
+    {
+      product_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+      type_id: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+      quantity: {
+        type: Number,
+      },
+      price: {
+        type: Number,
+      },
+    },
+  ],
   createAt: {
     type: Date,
     default: Date.now,

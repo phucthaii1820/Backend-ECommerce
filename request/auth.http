@@ -1,0 +1,18 @@
+###
+POST http://localhost:4000/auth/login
+Content-Type: application/json
+
+{ 
+    "phone": "0835059053",
+    "password": "123" 
+}
+
+
+###
+POST http://localhost:4000/auth/register
+Content-Type: application/json
+
+{ 
+    "phone": "123",
+    "password": "123" 
+}

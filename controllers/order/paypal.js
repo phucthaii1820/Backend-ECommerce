@@ -28,8 +28,7 @@ const create_payment_json1 = (dataPayPal) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url:
-        "http://localhost:4000/success?amount=" + total.toFixed(1).toString(),
+      return_url: "http://localhost:4000/success",
       cancel_url: "http://localhost:3000/cancel",
     },
     transactions: [
@@ -50,9 +49,6 @@ const create_payment_json1 = (dataPayPal) => {
 export default {
   pay(dataPayPal) {
     return new Promise((resolve) => {
-      console.log(
-        create_payment_json1(dataPayPal).transactions[0].amount.total
-      );
       paypal.payment.create(
         create_payment_json1(dataPayPal),
         function (error, payment) {
@@ -61,7 +57,8 @@ export default {
           } else {
             for (let i = 0; i < payment.links.length; i++) {
               if (payment.links[i].rel === "approval_url") {
-                resolve(payment.links[i].href);
+                resolve(payment.links[i].href.match(/EC-\w+/)[0]);
+                // resolve(payment.links[i].href);
               }
             }
           }

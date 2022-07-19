@@ -47,10 +47,10 @@ export default {
 
   async addWish(req, res) {
     if (req.user_data) {
-      const { idProduct } = req.body;
+      const { product_id } = req.body;
       const wish = await userService.addProductOnWish(
         req.user_data._id,
-        idProduct
+        product_id
       );
       res.send({
         wish,
@@ -63,10 +63,10 @@ export default {
 
   async removeWish(req, res) {
     if (req.user_data) {
-      const { idProduct } = req.body;
+      const { product_id } = req.body;
       const wish = await userService.removeProductOnWish(
         req.user_data._id,
-        idProduct
+        product_id
       );
       res.send({
         wish,
@@ -116,6 +116,37 @@ export default {
       res
         .status(200)
         .json({ success: true, message: "Update info success!", user_data });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
+
+  async addCart(req, res) {
+    if (req.user_data) {
+      const { product_id, type_id, quantity } = req.body;
+      const cart = await userService.addCart(
+        req.user_data._id,
+        product_id,
+        type_id,
+        quantity
+      );
+      res.send({
+        cart,
+      });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
+
+  async removeCart(req, res) {
+    if (req.user_data) {
+      const { cart_id } = req.body;
+      const cart = await userService.removeCart(req.user_data._id, cart_id);
+      res.send({
+        cart,
+      });
     } else
       res
         .status(400)

@@ -95,25 +95,72 @@ export default {
   },
 
   //Thêm product vào wish list
-  async addProductOnWish(_id, idProduct) {
+  async addProductOnWish(_id, product_id) {
     const user = await User.findById(_id, "wish");
     const wish = user.wish;
-    wish.push(idProduct);
+    wish.push({ product_id });
     await User.updateOne({ _id }, { wish });
     return wish;
   },
 
   //Xóa product trong wish list
-  async removeProductOnWish(_id, idProduct) {
+  async removeProductOnWish(_id, product_id) {
     const user = await User.findById(_id, "wish");
     const wish = user.wish;
-    wish.pop(idProduct);
-    await User.updateOne({ _id }, { wish });
-    return wish;
+    const wishTemp = [];
+    for (let i = 0; i < wish.length; i++) {
+      if (wish[i].product_id != product_id) {
+        wishTemp.push(wish[i]);
+      }
+    }
+    await User.updateOne({ _id }, { wish: wishTemp });
+    return wishTemp;
   },
 
   async getWishList(_id) {
     const user = await User.findById(_id, "wish");
     return user.wish;
+  },
+
+  async addCart(_id, product_id, type_id, quantity) {
+    const user = await User.findById(_id, "cart");
+    let cart = user.cart;
+    let checkExits = false;
+    cart.map((item) => {
+      if (item.product_id == product_id && item.type_id == type_id) {
+        item.quantity += quantity;
+
+        if (item.quantity <= 0) {
+          const cartTemp = [];
+          cart.map((itemChild) => {
+            if (itemChild._id != item._id) {
+              cartTemp.push(itemChild);
+            }
+          });
+
+          cart = cartTemp;
+        }
+
+        checkExits = true;
+      }
+    });
+    if (!checkExits) {
+      if (quantity > 0) cart.push({ product_id, type_id, quantity });
+    }
+    await User.updateOne({ _id }, { cart });
+    return cart;
+  },
+
+  async removeCart(_id, cart_id) {
+    const user = await User.findById(_id, "cart");
+    const cart = user.cart;
+    const cartTemp = [];
+    cart.map((item) => {
+      if (item._id != cart_id) {
+        cartTemp.push(item);
+      }
+    });
+    await User.updateOne({ _id }, { cart: cartTemp });
+    return cartTemp;
   },
 };

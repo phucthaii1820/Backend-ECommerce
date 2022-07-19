@@ -1,0 +1,55 @@
+###
+GET http://localhost:4000/order/get-all
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU3ODk2NDkzLCJleHAiOjE2NTgwNjkyOTN9.1HYdOZ8yP3ueVSA8ScjWCJhT1IicC0xfhGvo6ehQYpg
+
+
+###
+POST http://localhost:4000/order/create
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU3ODk2NDkzLCJleHAiOjE2NTgwNjkyOTN9.1HYdOZ8yP3ueVSA8ScjWCJhT1IicC0xfhGvo6ehQYpg
+Content-Type: application/json
+
+{ 
+    "products": [
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "typeId": "62bd79c9dcccb6ee9faf9cda",
+            "quantity": 1,
+            "total": 100
+        },
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "typeId": "62bd79c9dcccb6ee9faf9cdb",
+            "quantity": 1,
+            "total": 100
+        }
+    ],
+    "ship": 0,
+    "total": 100,
+    "payment": 1
+}
+
+
+###
+POST http://localhost:4000/order/pay
+Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiIiLCJmdWxsbmFtZSI6IlJvdXNlUHUiLCJnZW5kZXIiOiJOYW0iLCJhZGRyZXNzIjoiMzdsb2UiLCJjbW5kIjoiIiwicm9sZSI6MTAwMCwiYmlvIjoiQ2jDoG8gbeG7q25nIMSR4bq_biB0cmFuZyBjw6EgbmjDom4gdHLDqm4gxJDhu5MgQ2jGoWkgWGUgY-G7p2EgdMO0aSEiLCJyZWNlaXB0IjpbXSwiY3JlYXRlQXQiOiIyMDIyLTA2LTI1VDE4OjIyOjQ2LjA0MloiLCJfX3YiOjAsIndpc2giOlt7Il9pZCI6IjYyYmM4NjUwMGU2YjM4OTQ5MDE5NTM1NCJ9XSwiZGlzdHJpY3QiOjUsInByb3ZpbmNlIjo0LCJ3YXJkIjo2fSwiaWF0IjoxNjU4MDc3ODk4LCJleHAiOjE2NTgyNTA2OTh9.zsl5rOUBt7wkOORUDDv-oCzU9qNl-1Yz6W5mioa4uLk
+Content-Type: application/json
+
+{ 
+   "products": [
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "quantity": 1,
+            "name": "Sản phẩm 1"
+        },
+        {
+            "idProduct": "62bd79c9dcccb6ee9faf9cd9",
+            "priceAtBuy": 100,
+            "quantity": 1,
+            "name": "Sản phẩm 2"
+        }
+    ],
+    "typePayment": 2
+}
