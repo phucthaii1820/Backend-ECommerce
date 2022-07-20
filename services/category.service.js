@@ -18,4 +18,8 @@ export default {
     await CategoryModel.findByIdAndUpdate(id, { name });
     return await CategoryModel.find();
   },
+
+  async getCategoryById(id) {
+    return await CategoryModel.findById(id);
+  },
 };

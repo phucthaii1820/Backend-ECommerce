@@ -79,4 +79,25 @@ router.post("/remove-category", categoryController.removeCategory);
  */
 router.post("/update-category", categoryController.updateCategory);
 
+/**
+ * @openapi
+ * /category/get-category-by-id:
+ *   post:
+ *     summary: get category by id
+ *     tags:
+ *       - category
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *             required:
+ *               - id
+ */
+router.post("/get-category-by-id", categoryController.getCategoryById);
+
 export default router;

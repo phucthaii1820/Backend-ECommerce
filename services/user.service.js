@@ -9,10 +9,10 @@ export default {
   },
 
   //tạo mới user
-  async createNewUser(phone, password) {
+  async createNewUser(phone, password, email) {
     if (!(await User.exists({ phone }))) {
       const hashPass = await argon2.hash(password);
-      const user = await User.create({ phone, password: hashPass });
+      const user = await User.create({ phone, password: hashPass, email });
       return user;
     }
     return null;

@@ -41,4 +41,10 @@ export default {
         .json({ success: false, message: "you are not qualified" });
     }
   },
+
+  async getCategoryById(req, res) {
+    const { id } = req.body;
+    const data = await categoryService.getCategoryById(id);
+    res.send(data);
+  },
 };
