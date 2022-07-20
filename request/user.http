@@ -6,7 +6,7 @@ Content-Type: application/json
 { 
     "product_id": "62bd79c9dcccb6ee9faf9cd9",
     "type_id": "62bd79c9dcccb6ee9faf9cdb",
-    "quantity": 12
+    "quantity": 1
 }
 
 
@@ -16,7 +16,7 @@ Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2
 Content-Type: application/json
 
 { 
-    "cart_id": "62d6d966f18a25184cd8549f"
+    "cart_id": "62d6dce7e6d91f082933d57c"
 }
 
 ###
