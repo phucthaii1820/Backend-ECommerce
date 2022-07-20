@@ -81,23 +81,17 @@ router.post("/update-category", categoryController.updateCategory);
 
 /**
  * @openapi
- * /category/get-category-by-id:
- *   post:
+ * /category/get-category-by-id?id={id}:
+ *   get:
  *     summary: get category by id
  *     tags:
  *       - category
- *     requestBody:
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: string
  *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: string
- *             required:
- *               - id
  */
-router.post("/get-category-by-id", categoryController.getCategoryById);
+router.get("/get-category-by-id", categoryController.getCategoryById);
 
 export default router;

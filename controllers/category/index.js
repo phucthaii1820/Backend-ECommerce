@@ -43,7 +43,7 @@ export default {
   },
 
   async getCategoryById(req, res) {
-    const { id } = req.body;
+    const { id } = req?.query;
     const data = await categoryService.getCategoryById(id);
     res.send(data);
   },
