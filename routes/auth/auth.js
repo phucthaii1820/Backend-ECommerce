@@ -1,6 +1,11 @@
 import express from "express";
 import loginController from "../../controllers/auth/login.js";
 import registerController from "../../controllers/auth/register.js";
+import sgMail from "@sendgrid/mail";
+import dotenv from "dotenv";
+dotenv.config();
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const router = express.Router();
 
@@ -26,7 +31,7 @@ const router = express.Router();
  *               - phone
  *               - password
  */
-router.post('/login', loginController.login)
+router.post("/login", loginController.login);
 
 /**
  * @openapi
@@ -50,10 +55,26 @@ router.post('/login', loginController.login)
  *               - phone
  *               - password
  */
-router.post('/register', registerController.register)
+router.post("/register", registerController.register);
 
-router.get('/test', (req, res) => {
-    console.log(req.user_data)
-})
+router.post("/generate-code", (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  const msg = {
+    to: email, // Change to your recipient
+    from: "bikerbike.ecommerce@gmail.com", // Change to your verified sender
+    subject: "Welcome to BikerBike! Confirm Your Email",
+    // text: "and easy to do anywhere, even with Node.js",
+    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+  };
+  sgMail
+    .send(msg)
+    .then(() => {
+      console.log("Email sent");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
 
 export default router;

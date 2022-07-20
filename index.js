@@ -4,9 +4,6 @@ import { mongoose } from "mongoose";
 import dotenv from "dotenv";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import productService from "./services/product.service.js";
-import categoryService from "./services/category.service.js";
-import userService from "./services/user.service.js";
 import paypal from "paypal-rest-sdk";
 
 import activate_route_middleware from "./middlewares/routes.mdw.js";

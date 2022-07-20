@@ -83,4 +83,73 @@ router.post(
   productsController.addProduct
 );
 
+/**
+ * @openapi
+ * /products/update-product:
+ *   post:
+ *     summary: update product
+ *     tags:
+ *       - products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *               title:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               nameBrand:
+ *                 type: string
+ *               type:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                 example: [{ "color": "#ffd700", "quantity": 20, "price": 4000000 }, { "color": "#ffd700", "quantity": 20, "price": 4000000 }]
+ *               category:
+ *                 type: string
+ *               image:
+ *                 type: array
+ *                 items:
+ *                   type: file
+ *             required:
+ *               - id
+ *               - title
+ *               - description
+ *               - nameBrand
+ *               - type
+ *               - category
+ *               - image
+ */
+router.post(
+  "/update-product",
+  upload.array("image"),
+  productsController.updateProduct
+);
+
+/**
+ * @openapi
+ * /products/remove-product:
+ *   post:
+ *     summary: remove product
+ *     tags:
+ *       - products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *             required:
+ *               - id
+ */
+router.post("/remove-product", productsController.removeProduct);
+
 export default router;

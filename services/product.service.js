@@ -56,4 +56,26 @@ export default {
       }
     );
   },
+
+  async removeProduct(_id) {
+    await Product.deleteOne({ _id });
+  },
+
+  async updateProduct(_id, title, description, nameBrand, type, category) {
+    if (typeof type === "string") {
+      type = JSON.parse(type);
+    }
+    const image = [];
+    return await Product.updateOne(
+      { _id },
+      {
+        title,
+        description,
+        nameBrand,
+        type,
+        category,
+        image,
+      }
+    );
+  },
 };
