@@ -160,9 +160,6 @@ export default {
       res.send({
         user_data,
       });
-    } else
-      res
-        .status(400)
-        .json({ success: false, message: "User is not already exists" });
+    } else res.json({ success: false, message: "User is not already exists" });
   },
 };
