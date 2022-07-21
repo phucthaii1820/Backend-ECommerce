@@ -36,3 +36,12 @@ Content-Type: application/json
 { 
     "product_id": "62bc86500e6b389490195354"
 }
+
+
+###
+POST http://localhost:4000/user/check-exist-user
+Content-Type: application/json
+
+{ 
+    "phone": "0835059053"
+}

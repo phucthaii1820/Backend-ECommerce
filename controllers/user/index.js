@@ -152,4 +152,17 @@ export default {
         .status(400)
         .json({ success: false, message: "Please login your account!" });
   },
+
+  async checkExitUser(req, res) {
+    const phone = req.body.phone;
+    const user_data = await userService.checkExitsUser(phone);
+    if (user_data) {
+      res.send({
+        user_data,
+      });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "User is not already exists" });
+  },
 };

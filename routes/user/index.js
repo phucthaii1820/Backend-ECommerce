@@ -171,4 +171,25 @@ router.post("/add-cart", userController.addCart);
  */
 router.post("/remove-cart", userController.removeCart);
 
+/**
+ * @openapi
+ * /user/check-exist-user:
+ *   post:
+ *     summary: check exist user
+ *     tags:
+ *       - user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: string
+ *             required:
+ *               - phone
+ */
+router.post("/check-exist-user", userController.checkExitUser);
+
 export default router;
