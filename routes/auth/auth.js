@@ -51,12 +51,9 @@ router.post("/login", loginController.login);
  *                 type: string
  *               password:
  *                 type: string
- *               email:
- *                 type: string
  *             required:
  *               - phone
  *               - password
- *               - email
  */
 router.post("/register", registerController.register);
 

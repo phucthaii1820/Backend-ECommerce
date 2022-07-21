@@ -6,8 +6,7 @@ export default {
     if (!(await userService.checkExitsUser(req.body.phone))) {
       const user_data = await userService.createNewUser(
         req.body.phone,
-        req.body.password,
-        req.body.email
+        req.body.password
       );
 
       if (user_data) {

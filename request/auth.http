@@ -13,7 +13,7 @@ POST http://localhost:4000/auth/register
 Content-Type: application/json
 
 { 
-    "phone": "123",
+    "phone": "1234",
     "password": "123" 
 }
 
