@@ -15,4 +15,7 @@ export default {
   async getAll(_id) {
     return await OrderModel.find({ userId: _id });
   },
+  async getOrderById(id) {
+    return await OrderModel.findById(id);
+  },
 };

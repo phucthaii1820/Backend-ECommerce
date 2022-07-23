@@ -12,33 +12,49 @@ paypal.configure({
 const create_payment_json1 = (dataPayPal) => {
   const items = [];
   let total = 0;
-  dataPayPal.map((product) => {
+  const ship = (dataPayPal.ship / 23.415).toFixed(1);
+  dataPayPal.products.map((product) => {
     items.push({
-      name: product.name,
+      name: "product.name",
       sku: product.idProduct,
-      price: (product.priceAtBuy / 23.225).toFixed(1).toString(),
+      price: (product.priceAtBuy / 23.415).toFixed(1),
       currency: "USD",
       quantity: product.quantity,
     });
-    total += (product.priceAtBuy / 23.225) * product.quantity;
   });
+
+  items.map((item) => {
+    console.log(item);
+    total += item.price * item.quantity;
+  });
+
+  console.log(total);
+  total += Number(ship);
+  total = total.toFixed(1);
+  console.log(ship);
+  console.log(total);
   return {
     intent: "sale",
     payer: {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:4000/success",
-      cancel_url: "http://localhost:3000/cancel",
+      return_url:
+        "https://fit-summer-2022-ec-ommerce.vercel.app?success=true?message=Giao+d%E1%BB%8Bch+th%C3%A0nh+c%C3%B4ng.&extraData=" +
+        dataPayPal._id,
+      cancel_url:
+        "https://fit-summer-2022-ec-ommerce.vercel.app?success=false?message=Giao+d%E1%BB%8Bch+b%E1%BB%8B+t%E1%BB%AB+ch%E1%BB%91i+b%E1%BB%9Fi+ng%C6%B0%E1%BB%9Di+d%C3%B9ng.&extraData=" +
+        dataPayPal._id,
     },
     transactions: [
       {
-        item_list: {
-          items,
-        },
+        item_list: {},
         amount: {
           currency: "USD",
-          total: total.toFixed(1).toString(),
+          total: total,
+          details: {
+            shipping: ship,
+          },
         },
         description: "Hat for the best team ever",
       },
@@ -57,8 +73,8 @@ export default {
           } else {
             for (let i = 0; i < payment.links.length; i++) {
               if (payment.links[i].rel === "approval_url") {
-                resolve(payment.links[i].href.match(/EC-\w+/)[0]);
-                // resolve(payment.links[i].href);
+                // resolve(payment.links[i].href.match(/EC-\w+/)[0]);
+                resolve(payment.links[i].href);
               }
             }
           }

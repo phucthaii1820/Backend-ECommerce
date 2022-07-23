@@ -45,6 +45,35 @@ export default {
     return product;
   },
 
+  async searchProduct(keyword, page, nPerPage = 20) {
+    const list = await Product.find({
+      $or: [
+        { title: { $regex: keyword, $options: "i" } },
+        { nameBrand: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    })
+      .skip(page > 0 ? (page - 1) * nPerPage : 0)
+      .limit(nPerPage);
+
+    let totalProducts = await Product.find({
+      $or: [
+        { title: { $regex: keyword, $options: "i" } },
+        { nameBrand: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    }).count();
+
+    let totalPages = 0;
+    if (totalProducts % nPerPage === 0) totalPages = totalProducts / nPerPage;
+    else totalPages = Math.floor(totalProducts / nPerPage + 1);
+    return [
+      { producs: list },
+      { currentPage: page },
+      { totalPages: totalPages },
+    ];
+  },
+
   async addImageProduct(_id, url) {
     const product = await Product.findById(_id);
     let image = [...product.image];

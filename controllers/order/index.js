@@ -34,16 +34,19 @@ export default {
 
   async pay(req, res) {
     if (req.user_data) {
-      const { products, typePayment } = req.body;
-      switch (typePayment) {
+      const { id } = req.body;
+      const order = await orderService.getOrderById(id);
+      console.log(order?.payment);
+      switch (order?.payment) {
         case 1: {
-          const link = await paypal.pay(products);
-          res.send(link);
+          const link = await paypal.pay(order);
+          res.send({ link });
           break;
         }
         case 2: {
-          const result = await momo.pay(products);
-          res.send(result);
+          const result = await momo.pay(order);
+          const link = JSON.parse(result).payUrl;
+          res.send({ link });
           break;
         }
       }

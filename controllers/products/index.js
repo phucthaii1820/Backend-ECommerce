@@ -120,4 +120,12 @@ export default {
         .status(400)
         .json({ success: false, message: "You are not authorized" });
   },
+
+  async searchProduct(req, res) {
+    const { keyword, page } = req?.query;
+    const listProducts = await productService.searchProduct(keyword, page);
+    res.send({
+      data: listProducts,
+    });
+  },
 };

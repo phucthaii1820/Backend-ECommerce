@@ -9,13 +9,14 @@ export default {
       var secretkey = "7wnl0f86e6etugnPXg6DHpb9yP1QIOiH";
       var requestId = partnerCode + new Date().getTime();
       var orderId = requestId;
-      var orderInfo = `hhee`;
-      var redirectUrl = "https://fit-summer-2022-ec-ommerce.vercel.app";
-      var ipnUrl = "http://localhost:3000/momo/camon";
-      var amount = 30000;
+      var orderInfo = "Thanh toán đơn hàng";
+      var redirectUrl =
+        "https://fit-summer-2022-ec-ommerce.vercel.app?success=true";
+      var ipnUrl =
+        "https://fit-summer-2022-ec-ommerce.vercel.app?success=false";
+      var amount = dataMomo.total + dataMomo.ship;
       var requestType = "captureWallet";
-      var extraData =
-        "ewogICAgICAgICAgbmFtZTogIk5ndXllbiBWYW4gQSIsCiAgICAgICAgICBwaG9uZU51bWJlcjogIjA5OTk4ODg5OTkiLAogICAgICAgICAgZW1haWw6ICJlbWFpbF9hZGRAZG9tYWluLmNvbSIsCiAgICAgICAgfQ==";
+      var extraData = Buffer.from(dataMomo._id).toString("base64");
 
       var rawSignature =
         "accessKey=" +

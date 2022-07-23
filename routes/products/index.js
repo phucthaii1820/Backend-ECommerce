@@ -152,4 +152,23 @@ router.post(
  */
 router.post("/remove-product", productsController.removeProduct);
 
+/**
+ * @openapi
+ * /products/search?keyword={keyword}&page={page}:
+ *   get:
+ *     summary: search product
+ *     tags:
+ *       - products
+ *     parameters:
+ *     - in: path
+ *       name: keyword
+ *       type: string
+ *       required: true
+ *     - in: path
+ *       name: page
+ *       required: true
+ *       type: interger
+ */
+router.get("/search", productsController.searchProduct);
+
 export default router;
