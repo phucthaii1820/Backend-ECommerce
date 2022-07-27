@@ -122,8 +122,23 @@ export default {
   },
 
   async getWishList(_id) {
-    const user = await User.findById(_id, "wish");
-    return user.wish;
+    // const user = await User.findById(_id, "wish");
+    const user = await User.aggregate([
+      { $match: { _id } },
+      { $unwind: "$wish" },
+      {
+        $lookup: {
+          from: "products",
+          localField: "wish.product_id",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      { $unwind: "$product" },
+      { $replaceRoot: { newRoot: "$product" } },
+    ]);
+
+    return user;
   },
 
   async addCart(_id, product_id, type_id, quantity) {
