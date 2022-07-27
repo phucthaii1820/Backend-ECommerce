@@ -6,6 +6,11 @@ const typeProduct = new mongoose.Schema({
     type: String,
     require: true,
   },
+  store_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Store",
+    require: true,
+  },
   quantity: {
     type: Number,
     require: true,

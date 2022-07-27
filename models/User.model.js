@@ -86,6 +86,9 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  dob: {
+    type: Date,
+  },
   createAt: {
     type: Date,
     default: Date.now,

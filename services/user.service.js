@@ -1,4 +1,5 @@
 import User from "../models/User.model.js";
+import Product from "../models/Product.model.js";
 import argon2 from "argon2";
 
 export default {
@@ -100,6 +101,8 @@ export default {
     const wish = user.wish;
     wish.push({ product_id });
     await User.updateOne({ _id }, { wish });
+
+    await Product.updateOne({ _id: product_id }, { $inc: { totalWish: 1 } });
     return wish;
   },
 
@@ -114,6 +117,7 @@ export default {
       }
     }
     await User.updateOne({ _id }, { wish: wishTemp });
+    await Product.updateOne({ _id: product_id }, { $inc: { totalWish: -1 } });
     return wishTemp;
   },
 

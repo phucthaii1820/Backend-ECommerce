@@ -1,4 +1,5 @@
 import Product from "../models/Product.model.js";
+import Store from "../models/Store.model.js";
 import { mongoose } from "mongoose";
 
 export default {
@@ -6,7 +7,7 @@ export default {
     if (typeof type === "string") {
       type = JSON.parse(type);
     }
-    return await Product.create({
+    const product = await Product.create({
       title,
       description,
       nameBrand,
@@ -14,6 +15,23 @@ export default {
       category,
       image,
     });
+
+    product.type.map(async (item) => {
+      await Store.updateOne(
+        { _id: item.store_id },
+        {
+          $push: {
+            productStore: {
+              type_id: item._id,
+              quantity: item.quantity,
+              product_id: product._id,
+            },
+          },
+        }
+      );
+    });
+
+    return product;
   },
 
   async getListProductByCategory(category, pageNumber = 1, nPerPage = 20) {
@@ -55,7 +73,6 @@ export default {
     })
       .skip(page > 0 ? (page - 1) * nPerPage : 0)
       .limit(nPerPage);
-
     let totalProducts = await Product.find({
       $or: [
         { title: { $regex: keyword, $options: "i" } },
@@ -63,7 +80,6 @@ export default {
         { description: { $regex: keyword, $options: "i" } },
       ],
     }).count();
-
     let totalPages = 0;
     if (totalProducts % nPerPage === 0) totalPages = totalProducts / nPerPage;
     else totalPages = Math.floor(totalProducts / nPerPage + 1);
@@ -87,6 +103,19 @@ export default {
   },
 
   async removeProduct(_id) {
+    const product = await Product.findById(_id);
+    if (product) {
+      product.type.map(async (item) => {
+        await Store.updateOne(
+          { _id: item.store_id },
+          {
+            $pull: {
+              productStore: { type_id: item._id },
+            },
+          }
+        );
+      });
+    }
     await Product.deleteOne({ _id });
   },
 
@@ -94,8 +123,22 @@ export default {
     if (typeof type === "string") {
       type = JSON.parse(type);
     }
+    const product = await Product.findById(_id);
+    if (product) {
+      product.type.map(async (item) => {
+        await Store.updateOne(
+          { _id: item.store_id },
+          {
+            $pull: {
+              productStore: { type_id: item._id },
+            },
+          }
+        );
+      });
+    }
+
     const image = [];
-    return await Product.updateOne(
+    await Product.updateOne(
       { _id },
       {
         title,
@@ -106,5 +149,20 @@ export default {
         image,
       }
     );
+
+    const newProduct = await Product.findById(_id);
+
+    newProduct.type.map(async (item) => {
+      await Store.updateOne(
+        { _id: item.store_id },
+        {
+          $push: {
+            productStore: { type_id: item._id, quantity: item.quantity },
+          },
+        }
+      );
+    });
+
+    return newProduct;
   },
 };

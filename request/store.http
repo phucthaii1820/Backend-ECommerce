@@ -1,25 +1,23 @@
-POST http://localhost:4000/products/remove-product
+POST http://localhost:4000/store/add
 Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiJwaHVjdGhhaTAxMDhAZ21haWwuY29tIiwiZnVsbG5hbWUiOiJSb3VzZVB1IiwiZ2VuZGVyIjoiTmFtIiwiYWRkcmVzcyI6IjM3bG9lIiwiY21uZCI6IiIsInJvbGUiOjEwMDAsImJpbyI6IkNow6BvIG3hu6tuZyDEkeG6v24gdHJhbmcgY8OhIG5ow6JuIHRyw6puIMSQ4buTIENoxqFpIFhlIGPhu6dhIHTDtGkhIiwicmVjZWlwdCI6W10sImNyZWF0ZUF0IjoiMjAyMi0wNi0yNVQxODoyMjo0Ni4wNDJaIiwiX192IjowLCJkaXN0cmljdCI6MTQ0OCwicHJvdmluY2UiOjIwMiwid2FyZCI6MjA2MDcsImNhcnQiOltdLCJ3aXNoIjpbXX0sImlhdCI6MTY1ODg1MjEzMCwiZXhwIjoxNjU5MDI0OTMwfQ.BCSHV71Z_Bj2vsXCiQ8BuIQ-MKRBDOtg7Y1Y7aSm4vw
 Content-Type: application/json
 
 {
-    "id": "62e1221b1e9ea66fb00df09d"
+    "name": "Test",
+    "address": "123 Hong Bang",
+    "province": 123,
+    "district": 123,
+    "ward": 123
 }
-###
-
-GET http://localhost:4000/products/search?keyword=phuộc&page=1
-
 
 ###
-POST http://localhost:4000/products/add-product
+GET http://localhost:4000/store/get-all
+
+###
+POST http://localhost:4000/store/remove
 Authorization: Beaer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2RhdGEiOnsiX2lkIjoiNjJiNzUyNzZjMWI4NTYyZGNmMzQyMjJkIiwicGhvbmUiOiIwODM1MDU5MDUzIiwiZW1haWwiOiJwaHVjdGhhaTAxMDhAZ21haWwuY29tIiwiZnVsbG5hbWUiOiJSb3VzZVB1IiwiZ2VuZGVyIjoiTmFtIiwiYWRkcmVzcyI6IjM3bG9lIiwiY21uZCI6IiIsInJvbGUiOjEwMDAsImJpbyI6IkNow6BvIG3hu6tuZyDEkeG6v24gdHJhbmcgY8OhIG5ow6JuIHRyw6puIMSQ4buTIENoxqFpIFhlIGPhu6dhIHTDtGkhIiwicmVjZWlwdCI6W10sImNyZWF0ZUF0IjoiMjAyMi0wNi0yNVQxODoyMjo0Ni4wNDJaIiwiX192IjowLCJkaXN0cmljdCI6MTQ0OCwicHJvdmluY2UiOjIwMiwid2FyZCI6MjA2MDcsImNhcnQiOltdLCJ3aXNoIjpbXX0sImlhdCI6MTY1ODg1MjEzMCwiZXhwIjoxNjU5MDI0OTMwfQ.BCSHV71Z_Bj2vsXCiQ8BuIQ-MKRBDOtg7Y1Y7aSm4vw
 Content-Type: application/json
 
-{ 
-    "title": "Phuộc YSS RAIDER/SATRIA G-SPORT", 
-    "description": "Phuộc YSS Suzuki RAIDER, SATRIA G-SPORT CÓ BÌNH DẦU. Nhập khẩu chính hãng YSS Thái Lan bởi YSS.VN. Thông Số Phuộc YSS: MX302-285TRL-01-4-JX", 
-    "nameBrand": "YSS", 
-    "type": [{ "color": "#ffd700", "quantity": 20, "store_id": "62e01390cf4f24d0fb10a5b2", "price": 4000000 },{ "color": "#ffd700", "quantity": 20, "store_id": "62e01390cf4f24d0fb10a5b2", "price": 5000000 }], 
-    "category": "62ab68801094bceaaaa5c981", 
-    "image": [] 
+{
+   "id": "62e121cc1e9ea66fb00df098"
 }

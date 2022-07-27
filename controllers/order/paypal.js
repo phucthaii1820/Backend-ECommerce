@@ -12,6 +12,7 @@ paypal.configure({
 const create_payment_json1 = (dataPayPal) => {
   const items = [];
   let total = 0;
+  let subtotal = 0;
   const ship = (dataPayPal.ship / 23.415).toFixed(1);
   dataPayPal.products.map((product) => {
     items.push({
@@ -24,15 +25,12 @@ const create_payment_json1 = (dataPayPal) => {
   });
 
   items.map((item) => {
-    console.log(item);
     total += item.price * item.quantity;
   });
 
-  console.log(total);
+  subtotal += +total.toFixed(1);
   total += Number(ship);
   total = total.toFixed(1);
-  console.log(ship);
-  console.log(total);
   return {
     intent: "sale",
     payer: {
@@ -53,10 +51,11 @@ const create_payment_json1 = (dataPayPal) => {
           currency: "USD",
           total: total,
           details: {
+            subtotal: subtotal,
             shipping: ship,
           },
         },
-        description: "Hat for the best team ever",
+        description: "payment for order",
       },
     ],
   };
