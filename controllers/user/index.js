@@ -162,4 +162,27 @@ export default {
       });
     } else res.json({ success: false, message: "User is not already exists" });
   },
+
+  async getAllUsers(req, res) {
+    const users = await userService.getAllUsers();
+    res.send({
+      users,
+    });
+  },
+
+  async getUserById(req, res) {
+    const id = req?.query?.id;
+    const user_data = await userService.getUserById(id);
+    res.send({
+      user_data,
+    });
+  },
+
+  async deleteUser(req, res) {
+    const id = req?.query?.id;
+    const user_data = await userService.deleteUser(id);
+    res.send({
+      message: "Delete user success!",
+    });
+  },
 };

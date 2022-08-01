@@ -15,6 +15,46 @@ router.get("/info", userController.info);
 
 /**
  * @openapi
+ * /user/get-all-users:
+ *   get:
+ *     summary: Get all user
+ *     tags:
+ *       - user
+ */
+router.get("/get-all-users", userController.getAllUsers);
+
+/**
+ * @openapi
+ * /user/get-user-by-id?id={id}:
+ *   get:
+ *     summary: get user by id
+ *     tags:
+ *       - user
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: string
+ *       required: true
+ */
+router.get("/get-user-by-id", userController.getUserById);
+
+/**
+ * @openapi
+ * /user/delete-user?id={id}:
+ *   get:
+ *     summary: delete user
+ *     tags:
+ *       - user
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: string
+ *       required: true
+ */
+router.get("/delete-user", userController.deleteUser);
+
+/**
+ * @openapi
  * /user/change-password:
  *   post:
  *     summary: Change password for user

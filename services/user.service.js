@@ -9,6 +9,19 @@ export default {
     return user;
   },
 
+  async deleteUser(id) {
+    const user = await User.findByIdAndDelete(id);
+    return user;
+  },
+  async getUserById(id) {
+    const user = await User.findById(id);
+    return user;
+  },
+  async getAllUsers() {
+    const users = await User.find();
+    return users;
+  },
+
   //tạo mới user
   async createNewUser(phone, password) {
     if (!(await User.exists({ phone }))) {
