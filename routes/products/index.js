@@ -25,6 +25,16 @@ router.get("/get-list-by-category", productsController.getProductsByCategory);
 
 /**
  * @openapi
+ * /products/get-all-products:
+ *   get:
+ *     summary: get all product
+ *     tags:
+ *       - products
+ */
+router.get("/get-all-products", productsController.getAllProducts);
+
+/**
+ * @openapi
  * /products/get-product?id={id}:
  *   get:
  *     summary: get info product

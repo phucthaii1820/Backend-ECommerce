@@ -34,6 +34,11 @@ export default {
     return product;
   },
 
+  async getAllProducts(page) {
+    const products = await Product.find({});
+    return products;
+  },
+
   async getListProductByCategory(category, pageNumber = 1, nPerPage = 20) {
     const list = await Product.find({
       category: new mongoose.Types.ObjectId(category),

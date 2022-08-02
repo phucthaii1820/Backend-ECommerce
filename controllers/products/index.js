@@ -128,4 +128,11 @@ export default {
       data: listProducts,
     });
   },
+
+  async getAllProducts(req, res) {
+    const listProducts = await productService.getAllProducts();
+    res.send({
+      data: listProducts,
+    });
+  },
 };
