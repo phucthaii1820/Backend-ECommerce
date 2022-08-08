@@ -181,4 +181,55 @@ router.post("/remove-product", productsController.removeProduct);
  */
 router.get("/search", productsController.searchProduct);
 
+/**
+ * @openapi
+ * /products/create-comment:
+ *   post:
+ *     summary: create comment
+ *     tags:
+ *       - products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               productId:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *             required:
+ *               - id
+ *               - content
+ */
+router.post("/create-comment", productsController.createComment);
+
+/**
+ * @openapi
+ * /products/reply-comment:
+ *   post:
+ *     summary: reply comment
+ *     tags:
+ *       - products
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               productId:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *               commentId:
+ *                 type: string
+ *             required:
+ *               - id
+ *               - content
+ *               - commentId
+ */
+router.post("/reply-comment", productsController.replyComment);
+
 export default router;

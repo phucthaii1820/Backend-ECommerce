@@ -135,4 +135,46 @@ export default {
       data: listProducts,
     });
   },
+
+  async createComment(req, res) {
+    if (req.user_data) {
+      const { productId, content } = req.body;
+      const product = await productService.getProduct(productId);
+      if (product) {
+        await productService.createComment(
+          productId,
+          content,
+          req.user_data._id
+        );
+        res
+          .status(200)
+          .json({ success: true, message: "Create comment success" });
+      } else
+        res
+          .status(400)
+          .json({ success: false, message: "Product is not already exists" });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "You are not authorized" });
+  },
+
+  async replyComment(req, res) {
+    if (req.user_data && req.user_data?.role === 1000) {
+      const { productId, content, commentId } = req.body;
+      const product = await productService.getProduct(productId);
+      if (product) {
+        await productService.replyComment(productId, commentId, content);
+        res
+          .status(200)
+          .json({ success: true, message: "Reply comment success" });
+      } else
+        res
+          .status(400)
+          .json({ success: false, message: "Product is not already exists" });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "You are not authorized" });
+  },
 };

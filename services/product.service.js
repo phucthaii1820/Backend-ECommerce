@@ -170,4 +170,41 @@ export default {
 
     return newProduct;
   },
+
+  async createComment(productId, content, userId) {
+    const product = await Product.findById(productId);
+    if (product) {
+      const comments = [...product.comments];
+      comments.push({
+        userId,
+        content,
+      });
+      await Product.updateOne(
+        { _id: productId },
+        {
+          comments,
+        }
+      );
+    }
+    return product;
+  },
+
+  async replyComment(productId, commentId, content) {
+    const product = await Product.findById(productId);
+    if (product) {
+      const comments = [...product.comments];
+      const comment = comments.find(
+        (item) => item._id.toString() === commentId
+      );
+      if (comment) {
+        await Product.updateOne(
+          { _id: productId, "comments._id": commentId },
+          {
+            "comments.$.reply": content,
+          }
+        );
+      }
+    }
+    return product;
+  },
 };
