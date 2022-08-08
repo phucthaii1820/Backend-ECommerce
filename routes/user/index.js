@@ -79,6 +79,27 @@ router.post("/change-password", userController.changePassword);
 
 /**
  * @openapi
+ * /user/forgot-password:
+ *   post:
+ *     summary: Forgot password for user
+ *     tags:
+ *       - user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newPassword:
+ *                 type: string
+ *             required:
+ *               - newPassword
+ */
+router.post("/forgot-password", userController.forgotPassword);
+
+/**
+ * @openapi
  * /user/add-wish-product:
  *   post:
  *     summary: add wish product

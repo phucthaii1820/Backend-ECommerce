@@ -45,6 +45,24 @@ export default {
         .json({ success: false, message: "Please login your account!" });
   },
 
+  async forgotPassword(req, res) {
+    if (req.user_data) {
+      const { newPassword } = req.body;
+      const user_data = await userService.forgotPassword(
+        req.user_data._id,
+        newPassword
+      );
+      if (user_data) {
+        res
+          .status(200)
+          .json({ success: true, message: "Update password success!" });
+      }
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+  },
+
   async addWish(req, res) {
     if (req.user_data) {
       const { product_id } = req.body;
