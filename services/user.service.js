@@ -196,8 +196,10 @@ export default {
     return cartTemp;
   },
 
-  async forgotPassword(id, newPassword) {
+  async forgotPassword(phone, newPassword) {
     const hashPass = await argon2.hash(newPassword);
-    return User.updateOne({ _id: id }, { password: hashPass });
+    return User.updateOne({
+      phone: phone
+    }, { password: hashPass });
   },
 };

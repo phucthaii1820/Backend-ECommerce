@@ -46,21 +46,18 @@ export default {
   },
 
   async forgotPassword(req, res) {
-    if (req.user_data) {
-      const { newPassword } = req.body;
-      const user_data = await userService.forgotPassword(
-        req.user_data._id,
-        newPassword
-      );
-      if (user_data) {
-        res
-          .status(200)
-          .json({ success: true, message: "Update password success!" });
-      }
-    } else
+    const { phone, newPassword } = req.body;
+    const user_data = await userService.forgotPassword(
+      phone,
+      newPassword
+    );
+    if (user_data) {
       res
-        .status(400)
-        .json({ success: false, message: "Please login your account!" });
+        .status(200)
+        .json({ success: true, message: "Update password success!" });
+    }
+    else
+      res.status(400).json({ success: false, mess: "Update password fail!" })
   },
 
   async addWish(req, res) {

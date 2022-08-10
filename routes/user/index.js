@@ -91,9 +91,12 @@ router.post("/change-password", userController.changePassword);
  *           schema:
  *             type: object
  *             properties:
+ *               phone:
+ *                 type: string
  *               newPassword:
  *                 type: string
  *             required:
+ *               - phone
  *               - newPassword
  */
 router.post("/forgot-password", userController.forgotPassword);
