@@ -1,4 +1,5 @@
 import Product from "../models/Product.model.js";
+import User from "../models/User.model.js";
 import Store from "../models/Store.model.js";
 import { mongoose } from "mongoose";
 
@@ -64,8 +65,18 @@ export default {
 
   //lấy thông tin sản phẩm
   async getProduct(_id) {
-    const product = await Product.findById(_id);
-    return product;
+    const product = await Product.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(_id) } },
+    ]);
+
+    let result = product[0];
+    await Promise.all(
+      result.comments?.map(async (item) => {
+        const user = await User.findOne({ _id: item.userId }, "fullname");
+        item.fullname = user.fullname;
+      })
+    );
+    return result;
   },
 
   async searchProduct(keyword, page, nPerPage = 20) {
