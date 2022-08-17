@@ -73,7 +73,7 @@ export default {
     await Promise.all(
       result.comments?.map(async (item) => {
         const user = await User.findOne({ _id: item.userId }, "fullname");
-        item.fullname = user.fullname;
+        item.fullname = user?.fullname;
       })
     );
     return result;
