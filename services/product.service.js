@@ -71,7 +71,7 @@ export default {
 
     let result = product[0];
     await Promise.all(
-      result.comments?.map(async (item) => {
+      result?.comments?.map(async (item) => {
         const user = await User.findOne({ _id: item.userId }, "fullname");
         item.fullname = user?.fullname;
       })
