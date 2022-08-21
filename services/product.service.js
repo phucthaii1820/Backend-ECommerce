@@ -37,6 +37,7 @@ export default {
 
   async getAllProducts(page) {
     const products = await Product.find({});
+
     return products;
   },
 

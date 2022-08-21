@@ -20,6 +20,18 @@ export default {
   },
 
   async changeStatus(id, statusOrder) {
-    return await OrderModel.findByIdAndUpdate(id, { statusOrder });
+    return await OrderModel.findByIdAndUpdate(
+      id,
+      { statusOrder },
+      { new: true }
+    );
+  },
+
+  async getOrderById(id) {
+    return await OrderModel.findById(id);
+  },
+
+  async getAllAdmin() {
+    return await OrderModel.find();
   },
 };

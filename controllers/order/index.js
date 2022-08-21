@@ -68,4 +68,27 @@ export default {
         .json({ success: false, message: "Please login your account!" });
     }
   },
+
+  async getById(req, res) {
+    if (req.user_data) {
+      const { id } = req.query;
+      const order = await orderService.getOrderById(id);
+      res.json(order);
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+    }
+  },
+
+  async getAllAdmin(req, res) {
+    if (req.user_data) {
+      const orders = await orderService.getAllAdmin();
+      res.json(orders);
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+    }
+  },
 };
