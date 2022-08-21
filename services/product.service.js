@@ -35,8 +35,10 @@ export default {
     return product;
   },
 
-  async getAllProducts(page) {
-    const products = await Product.find({});
+  async getAllProducts() {
+    const products = await Product.find({}).populate({
+      path: "comments.userId",
+    });
 
     return products;
   },
@@ -66,20 +68,10 @@ export default {
 
   //lấy thông tin sản phẩm
   async getProduct(_id) {
-    const product = await Product.aggregate([
-      { $match: { _id: new mongoose.Types.ObjectId(_id) } },
-    ]);
-
-    let result = product[0];
-    if (result?.comments?.lenght > 0) {
-      await Promise.all(
-        result?.comments?.map(async (item) => {
-          const user = await User.findOne({ _id: item.userId });
-          item.fullname = user?.fullname;
-        })
-      );
-    }
-    return result;
+    const product = await Product.findById(_id).populate({
+      path: "comments.userId",
+    });
+    return product;
   },
 
   async searchProduct(keyword, page, nPerPage = 20) {

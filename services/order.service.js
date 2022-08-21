@@ -13,7 +13,9 @@ export default {
     return await order.save();
   },
   async getAll(_id) {
-    return await OrderModel.find({ userId: _id });
+    return await OrderModel.find({ userId: _id }).populate({
+      path: "products.idProduct",
+    });
   },
   async getOrderById(id) {
     return await OrderModel.findById(id);

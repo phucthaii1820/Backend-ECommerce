@@ -41,6 +41,10 @@ const oderSchema = new mongoose.Schema({
     type: Number,
     enum: Object.values(typePayment),
   },
+  createAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export default mongoose.model("Oder", oderSchema);
