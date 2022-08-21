@@ -56,4 +56,16 @@ export default {
         .json({ success: false, message: "Please login your account!" });
     }
   },
+
+  async changeStatus(req, res) {
+    if (req.user_data) {
+      const { id, statusOrder } = req.body;
+      const order = await orderService.changeStatus(id, statusOrder);
+      res.json(order);
+    } else {
+      res
+        .status(400)
+        .json({ success: false, message: "Please login your account!" });
+    }
+  },
 };

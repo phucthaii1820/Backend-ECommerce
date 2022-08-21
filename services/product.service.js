@@ -70,12 +70,14 @@ export default {
     ]);
 
     let result = product[0];
-    await Promise.all(
-      result?.comments?.map(async (item) => {
-        const user = await User.findOne({ _id: item.userId }, "fullname");
-        item.fullname = user?.fullname;
-      })
-    );
+    if (result?.comments?.lenght > 0) {
+      await Promise.all(
+        result?.comments?.map(async (item) => {
+          const user = await User.findOne({ _id: item.userId });
+          item.fullname = user?.fullname;
+        })
+      );
+    }
     return result;
   },
 

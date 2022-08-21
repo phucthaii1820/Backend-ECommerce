@@ -18,4 +18,8 @@ export default {
   async getOrderById(id) {
     return await OrderModel.findById(id);
   },
+
+  async changeStatus(id, statusOrder) {
+    return await OrderModel.findByIdAndUpdate(id, { statusOrder });
+  },
 };

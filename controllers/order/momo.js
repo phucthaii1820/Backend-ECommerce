@@ -11,9 +11,9 @@ export default {
       var orderId = requestId;
       var orderInfo = "Thanh toán đơn hàng";
       var redirectUrl =
-        "https://fit-summer-2022-ec-ommerce.vercel.app?success=true";
+        "https://fit-summer-2022-ec-ommerce.vercel.app/complete-order?success=true";
       var ipnUrl =
-        "https://fit-summer-2022-ec-ommerce.vercel.app?success=false";
+        "https://fit-summer-2022-ec-ommerce.vercel.app/complete-order?success=false";
       var amount = dataMomo.total + dataMomo.ship;
       var requestType = "captureWallet";
       var extraData = Buffer.from(dataMomo._id).toString("base64");

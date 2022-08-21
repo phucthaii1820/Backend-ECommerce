@@ -158,9 +158,20 @@ export default {
     const user = await User.findById(_id, "cart");
     let cart = user.cart;
     let checkExits = false;
+    let totalQuantity = 0;
+
+    const product = await Product.findById(product_id);
+    product?.type?.map((item) => {
+      if (item._id == type_id) {
+        totalQuantity = item.quantity;
+      }
+    });
+
     cart.map((item) => {
       if (item.product_id == product_id && item.type_id == type_id) {
-        item.quantity += quantity;
+        item.quantity + quantity > totalQuantity
+          ? (item.quantity = totalQuantity)
+          : (item.quantity = item.quantity + quantity);
 
         if (item.quantity <= 0) {
           const cartTemp = [];
@@ -179,6 +190,7 @@ export default {
     if (!checkExits) {
       if (quantity > 0) cart.push({ product_id, type_id, quantity });
     }
+
     await User.updateOne({ _id }, { cart });
     return cart;
   },
@@ -198,8 +210,15 @@ export default {
 
   async forgotPassword(phone, newPassword) {
     const hashPass = await argon2.hash(newPassword);
-    return User.updateOne({
-      phone: phone
-    }, { password: hashPass });
+    return User.updateOne(
+      {
+        phone: phone,
+      },
+      { password: hashPass }
+    );
+  },
+
+  async clearCart(_id) {
+    return await User.updateOne({ _id }, { cart: [] });
   },
 };

@@ -10,6 +10,7 @@ paypal.configure({
 });
 
 const create_payment_json1 = (dataPayPal) => {
+  var extraData = Buffer.from(dataPayPal._id).toString("base64");
   const items = [];
   let total = 0;
   let subtotal = 0;
@@ -38,11 +39,11 @@ const create_payment_json1 = (dataPayPal) => {
     },
     redirect_urls: {
       return_url:
-        "https://fit-summer-2022-ec-ommerce.vercel.app?success=true?message=Giao+d%E1%BB%8Bch+th%C3%A0nh+c%C3%B4ng.&extraData=" +
-        dataPayPal._id,
+        "https://fit-summer-2022-ec-ommerce.vercel.app/complete-order?success=true&message=Giao+d%E1%BB%8Bch+th%C3%A0nh+c%C3%B4ng.&extraData=" +
+        extraData,
       cancel_url:
-        "https://fit-summer-2022-ec-ommerce.vercel.app?success=false?message=Giao+d%E1%BB%8Bch+b%E1%BB%8B+t%E1%BB%AB+ch%E1%BB%91i+b%E1%BB%9Fi+ng%C6%B0%E1%BB%9Di+d%C3%B9ng.&extraData=" +
-        dataPayPal._id,
+        "https://fit-summer-2022-ec-ommerce.vercel.app/complete-order?success=false&message=Giao+d%E1%BB%8Bch+b%E1%BB%8B+t%E1%BB%AB+ch%E1%BB%91i+b%E1%BB%9Fi+ng%C6%B0%E1%BB%9Di+d%C3%B9ng.&extraData=" +
+        extraData,
     },
     transactions: [
       {

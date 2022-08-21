@@ -256,4 +256,6 @@ router.post("/remove-cart", userController.removeCart);
  */
 router.post("/check-exist-user", userController.checkExitUser);
 
+router.get("/clear-cart", userController.clearCart);
+
 export default router;

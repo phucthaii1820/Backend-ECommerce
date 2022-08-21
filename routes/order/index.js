@@ -10,6 +10,8 @@ router.post("/create", orderController.createOrder);
 
 router.post("/pay", orderController.pay);
 
+router.post("/change-status", orderController.changeStatus);
+
 router.get("/test", (req, res) => {
   res.redirect("https://fit-summer-2022-ec-ommerce.vercel.app?orderId=1");
 });
