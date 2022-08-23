@@ -13,6 +13,10 @@ export default multer({
     }
 
     // To accept the file pass `true`, like so:
-    cb(null, true);
+
+    setTimeout(() => {
+      cb(null, true);
+      console.log("done");
+    }, 2000);
   },
 });
