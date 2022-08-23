@@ -51,11 +51,7 @@ export default {
         })
       );
 
-      await Promise.all(
-        url.map(async (item) => {
-          await productService.addImageProduct(product._id, item);
-        })
-      );
+      await productService.addImageProduct(product._id, url);
 
       res.status(200).json({ success: true, message: "Add product success" });
     } else
@@ -118,13 +114,7 @@ export default {
           })
         );
 
-        await Promise.all(
-          url.map(async (item) => {
-            await productService.addImageProduct(product._id, item);
-          })
-        );
-
-        console.log(url);
+        await productService.addImageProduct(product._id, url);
 
         res
           .status(200)

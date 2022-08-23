@@ -102,15 +102,7 @@ export default {
   },
 
   async addImageProduct(_id, url) {
-    const product = await Product.findById(_id);
-    let image = [...product.image];
-    image.push(url);
-    return await Product.updateOne(
-      { _id },
-      {
-        image,
-      }
-    );
+    return await Product.updateOne({ _id }, { image: url });
   },
 
   async removeProduct(_id) {
