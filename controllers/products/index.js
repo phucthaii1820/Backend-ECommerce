@@ -47,7 +47,13 @@ export default {
           const result = await cloudinary.uploader.upload(item.path, {
             public_id: "products/" + product._id + "/" + item.filename,
           });
-          await productService.addImageProduct(product._id, result.secure_url);
+          url.push(result.url);
+        })
+      );
+
+      await Promise.all(
+        url.map(async (item) => {
+          await productService.addImageProduct(product._id, item);
         })
       );
 
@@ -108,9 +114,17 @@ export default {
             const result = await cloudinary.uploader.upload(item.path, {
               public_id: "products/" + id + "/" + item.filename,
             });
-            await productService.addImageProduct(id, result.secure_url);
+            url.push(result.url);
           })
         );
+
+        await Promise.all(
+          url.map(async (item) => {
+            await productService.addImageProduct(product._id, item);
+          })
+        );
+
+        console.log(url);
 
         res
           .status(200)
