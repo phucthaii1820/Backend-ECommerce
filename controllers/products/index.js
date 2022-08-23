@@ -42,12 +42,14 @@ export default {
       );
 
       const url = [];
-      req.files.map(async (item) => {
-        const result = await cloudinary.uploader.upload(item.path, {
-          public_id: "products/" + product._id + "/" + item.filename,
-        });
-        await productService.addImageProduct(product._id, result.secure_url);
-      });
+      await Promise.all(
+        req.files.map(async (item) => {
+          const result = await cloudinary.uploader.upload(item.path, {
+            public_id: "products/" + product._id + "/" + item.filename,
+          });
+          await productService.addImageProduct(product._id, result.secure_url);
+        })
+      );
 
       res.status(200).json({ success: true, message: "Add product success" });
     } else
@@ -101,12 +103,14 @@ export default {
           console.log(error);
         }
         const url = [];
-        req.files.map(async (item) => {
-          const result = await cloudinary.uploader.upload(item.path, {
-            public_id: "products/" + id + "/" + item.filename,
-          });
-          await productService.addImageProduct(id, result.secure_url);
-        });
+        await Promise.all(
+          req.files.map(async (item) => {
+            const result = await cloudinary.uploader.upload(item.path, {
+              public_id: "products/" + id + "/" + item.filename,
+            });
+            await productService.addImageProduct(id, result.secure_url);
+          })
+        );
 
         res
           .status(200)
