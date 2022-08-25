@@ -4,10 +4,19 @@ import Store from "../models/Store.model.js";
 import { mongoose } from "mongoose";
 
 export default {
-  async createProduct(title, description, nameBrand, type, category, image) {
+  async createProduct(
+    title,
+    description,
+    nameBrand,
+    type,
+    category,
+    image,
+    statusPost
+  ) {
     if (typeof type === "string") {
       type = JSON.parse(type);
     }
+
     const product = await Product.create({
       title,
       description,
@@ -15,6 +24,7 @@ export default {
       type,
       category,
       image,
+      statusPost,
     });
 
     product.type.map(async (item) => {
@@ -46,12 +56,14 @@ export default {
   async getListProductByCategory(category, pageNumber = 1, nPerPage = 20) {
     const list = await Product.find({
       category: new mongoose.Types.ObjectId(category),
+      statusPost: 1,
     })
       .skip(pageNumber > 0 ? (pageNumber - 1) * nPerPage : 0)
       .limit(nPerPage);
 
     let totalProducts = await Product.find({
       category: new mongoose.Types.ObjectId(category),
+      statusPost: 1,
     }).count();
     let totalPages = 0;
     if (totalProducts % nPerPage === 0) totalPages = totalProducts / nPerPage;
@@ -122,7 +134,15 @@ export default {
     await Product.deleteOne({ _id });
   },
 
-  async updateProduct(_id, title, description, nameBrand, type, category) {
+  async updateProduct(
+    _id,
+    title,
+    description,
+    nameBrand,
+    type,
+    category,
+    statusPost
+  ) {
     if (typeof type === "string") {
       type = JSON.parse(type);
     }
@@ -150,6 +170,7 @@ export default {
         type,
         category,
         image,
+        statusPost,
       }
     );
 

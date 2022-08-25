@@ -32,13 +32,23 @@ export default {
 
   async addProduct(req, res, next) {
     if (req.user_data && req.user_data?.role === 1000) {
-      const { title, description, nameBrand, type, category, image } = req.body;
+      const {
+        title,
+        description,
+        nameBrand,
+        type,
+        category,
+        statusPost,
+        image,
+      } = req.body;
       const product = await productService.createProduct(
         title,
         description,
         nameBrand,
         type,
-        category
+        category,
+        image,
+        statusPost
       );
 
       const url = [];
@@ -88,7 +98,8 @@ export default {
 
   async updateProduct(req, res) {
     if (req.user_data && req.user_data?.role === 1000) {
-      const { id, title, description, nameBrand, type, category } = req.body;
+      const { id, title, description, nameBrand, type, category, statusPost } =
+        req.body;
       const product = await productService.getProduct(id);
       if (product) {
         await productService.updateProduct(
@@ -97,7 +108,8 @@ export default {
           description,
           nameBrand,
           type,
-          category
+          category,
+          statusPost
         );
         try {
           await cloudinary.api.delete_resources_by_prefix("products/" + id);

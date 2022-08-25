@@ -62,6 +62,8 @@ router.get("/get-product", productsController.getInfoProduct);
  *           schema:
  *             type: object
  *             properties:
+ *               statusPost:
+ *                 type: number
  *               title:
  *                 type: string
  *               description:
@@ -86,6 +88,7 @@ router.get("/get-product", productsController.getInfoProduct);
  *               - type
  *               - category
  *               - image
+ *               - statusPost
  */
 router.post(
   "/add-product",
@@ -107,6 +110,8 @@ router.post(
  *           schema:
  *             type: object
  *             properties:
+ *               statusPost:
+ *                 type: number
  *               id:
  *                 type: string
  *               title:
@@ -134,6 +139,7 @@ router.post(
  *               - type
  *               - category
  *               - image
+ *               - statusPost
  */
 router.post(
   "/update-product",
