@@ -1,4 +1,5 @@
 import OrderModel from "../models/Order.model.js";
+import ProductService from "./product.service.js";
 
 export default {
   async createOrder(userId, products, ship, total, statusOrder, payment) {
@@ -22,11 +23,42 @@ export default {
   },
 
   async changeStatus(id, statusOrder) {
-    return await OrderModel.findByIdAndUpdate(
-      id,
-      { statusOrder },
-      { new: true }
-    );
+    let check = true;
+    const order = await OrderModel.findById(id);
+    if (statusOrder === 2) {
+      for (let product of order?.products) {
+        const productCheck = await ProductService.getProduct(product.idProduct);
+
+        for (let itemtype of productCheck?.type) {
+          if (itemtype._id.toString() === product.typeId.toString()) {
+            if (itemtype.quantity < product.quantity) {
+              check = false;
+            }
+          }
+        }
+      }
+
+      if (check) {
+        for (let product of order?.products) {
+          const result = await ProductService.changeQuantity(
+            product.idProduct,
+            product.typeId,
+            product.quantity
+          );
+          check = result;
+        }
+      }
+    }
+
+    if (check) {
+      await OrderModel.updateOne(
+        { _id: id },
+        {
+          statusOrder,
+        }
+      );
+    }
+    return check;
   },
 
   async getOrderById(id) {
@@ -34,6 +66,6 @@ export default {
   },
 
   async getAllAdmin() {
-    return await OrderModel.find();
+    return await OrderModel.find().populate({ path: "userId" });
   },
 };

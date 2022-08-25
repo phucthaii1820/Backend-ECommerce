@@ -226,4 +226,31 @@ export default {
     }
     return product;
   },
+
+  async changeQuantity(productId, typeId, quantity) {
+    let product = await Product.findById(productId);
+    let check = true;
+    if (product) {
+      for (let item of product.type) {
+        if (item._id.toString() === typeId.toString()) {
+          if (item.quantity < quantity) {
+            check = false;
+          } else {
+            item.quantity -= quantity;
+          }
+        }
+      }
+      console.log(product);
+
+      if (check) {
+        const test = await Product.findByIdAndUpdate(
+          productId,
+          { type: product.type },
+          { new: true }
+        );
+      }
+
+      return check;
+    }
+  },
 };

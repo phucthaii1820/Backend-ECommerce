@@ -61,7 +61,9 @@ export default {
     if (req.user_data) {
       const { id, statusOrder } = req.body;
       const order = await orderService.changeStatus(id, statusOrder);
-      res.json(order);
+      if (order === false)
+        res.status(200).json({ success: false, message: "Không đủ số lượng" });
+      else res.json({ success: true, message: "Đổi trạng thái thành công" });
     } else {
       res
         .status(400)
