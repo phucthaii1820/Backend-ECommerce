@@ -80,8 +80,11 @@ export default {
 
   //lấy thông tin sản phẩm
   async getProduct(_id) {
-    const product = await Product.findById(_id).populate({
+    let product = await Product.findById(_id).populate({
       path: "comments.userId",
+    });
+    product?.comments?.sort(function (a, b) {
+      return new Date(b.createdAt) - new Date(a.createdAt);
     });
     return product;
   },

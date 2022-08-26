@@ -14,9 +14,11 @@ export default {
     return await order.save();
   },
   async getAll(_id) {
-    return await OrderModel.find({ userId: _id }).populate({
-      path: "products.idProduct",
-    });
+    return await OrderModel.find({ userId: _id })
+      .populate({
+        path: "products.idProduct",
+      })
+      .sort({ createAt: -1 });
   },
   async getOrderById(id) {
     return await OrderModel.findById(id);
