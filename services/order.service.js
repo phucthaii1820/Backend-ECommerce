@@ -68,6 +68,8 @@ export default {
   },
 
   async getAllAdmin() {
-    return await OrderModel.find().populate({ path: "userId" });
+    return await OrderModel.find()
+      .populate({ path: "userId" })
+      .populate({ path: "products.idProduct" });
   },
 };
