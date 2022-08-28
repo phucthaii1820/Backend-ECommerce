@@ -19,4 +19,18 @@ export default {
   async removeStore(id) {
     return await Store.findByIdAndDelete(id);
   },
+
+  async updateStore(id, name, address, province, district, ward) {
+    return await Store.findByIdAndUpdate(
+      id,
+      {
+        name,
+        address,
+        province,
+        district,
+        ward,
+      },
+      { new: true }
+    );
+  },
 };

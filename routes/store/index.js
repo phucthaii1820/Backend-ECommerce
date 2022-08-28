@@ -9,4 +9,6 @@ router.get("/get-all", storeController.getAllStores);
 
 router.post("/remove", storeController.removeStore);
 
+router.post("/update", storeController.updateStore);
+
 export default router;

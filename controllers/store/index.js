@@ -47,4 +47,28 @@ export default {
         .status(400)
         .json({ success: false, message: "You are not authorized" });
   },
+  async updateStore(req, res) {
+    if (req.user_data && req.user_data?.role === 1000) {
+      const { id, name, address, province, district, ward } = req.body;
+      const store = await storeService.updateStore(
+        id,
+        name,
+        address,
+        province,
+        district,
+        ward
+      );
+      if (store)
+        res
+          .status(200)
+          .json({ success: true, message: "Update store success" });
+      else
+        res
+          .status(400)
+          .json({ success: false, message: "Update store failed" });
+    } else
+      res
+        .status(400)
+        .json({ success: false, message: "You are not authorized" });
+  },
 };
